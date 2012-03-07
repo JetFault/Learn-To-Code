@@ -1,0 +1,72 @@
+#!/bin/bash
+
+function helpMenu {
+	echo "Usage:"
+	echo "$0 \"<command to be run>\""
+	echo
+	echo -e "m\tMachine hostname file"
+	echo -e "k\tKill me everywhere but here"
+	echo -e "f\tLike -k but kill with fire"
+}
+
+machines="../machineList"
+
+cmd=""
+
+if [ "$1" = "help" ]
+then
+	helpMenu
+	exit 0
+fi
+
+while getopts m:kf opt; do
+	case $opt in
+		m) #machine hostname file
+			machines="$OPTARG"		
+			;;
+		k) #kill me everywhere but here!
+			cmd="kill -u $USER"
+			killme=true
+			;;
+		f) #kill me with fire!
+			cmd="killall -9 -u $USER"
+			killme=true
+			;;
+		\?)
+			echo "Unknown flag: -$OPTARG"
+			helpMenu
+			exit -1
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+cmd="${cmd}$@" 
+
+if [ "$cmd" = "" ] #If no command was entered, and no runnable-flag was used
+then
+	echo "No command specified."
+	echo "Type \"$0 help\" for more help"
+	exit -1
+fi
+
+if [ ! -f "$machines" ]
+then
+	echo "File listing machines one per line doesn't exist: \"$machines\""
+	exit -2
+fi
+
+for machine in `cat $machines` #${machines[@]}
+do
+	if [ "killme" = "true" -a "$machine" = "`hostname`" ]; then
+		continue;
+	fi
+
+	echo -e "SSH Attempt:${machine}"
+	ssh -q $machine "$cmd" 2> /dev/null
+	if [ $? -eq 255 ]
+	then
+		echo "SSH Error: $machine"
+	fi
+	echo ""
+done
