@@ -1,0 +1,99 @@
+#!/bin/bash
+
+function helpMenu {
+	echo "Usage:"
+	echo "$0 \"<command to be run>\""
+	echo "$0 -if \"<list of packages seperated by spaces>\""
+
+	echo ""
+	echo "Default location for local log file is \"~/ilabAdmin.log\""
+	echo "Default location for remote log files are \"/var/tmp/ilabAdmin.log\""
+
+	echo ""
+	echo "Flags:"
+	echo -e "-i\t Yum install packages. Put list of packages in quotes."
+	echo -e "-f\t Force Yum Cache deletion. Only usable with -i flag."
+	echo -e "-l\t Location for log files on the local machine"
+	echo -e "-r\t Location for log files on the remote machines"
+
+	echo ""
+	echo "Note:"
+	echo "Runnable-flags take precedence over custom commands."
+}
+
+logLoc="$HOME/ilabAdmin.log"
+#logRem="/var/log/ilabAdmin.log"
+logRem="/var/tmp/ilabAdmin.log"
+machines="$HOME/machineList"
+
+cmd=""
+yum="sudo yum clean all;";
+
+if [ "$1" = "help" ]
+then
+	helpMenu
+	exit 0
+fi
+
+while getopts fl:r:m:i: opt; do
+	case $opt in
+		f) 
+			yum="${yum}sudo rm -rf /var/cache/yum/*;"
+			;;
+		l) #local log file
+			logLoc="$OPTARG"	
+			;;
+		r) #remote log file
+			logRem="$OPTARG"
+			;;
+		m) #machine hostname file
+			machines="$OPTARG"		
+			;;
+		i) #yum install -i "<list of packages>" Must have quotes
+			pkg="$OPTARG"
+			cmd="${yum}sudo yum install $pkg;"
+			;;
+		#s) #turn on monitors from sleep state. Don't know if this works.
+		#	cmd="sudo setterm -reset"
+		#	cmd="sudo xset on"
+		#	;;
+		\?)
+			echo "Unknown flag: -$OPTARG"
+			exit -1
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+cmd="${cmd}$@" #Runnable-flag has presendence over custom command.
+
+if [ "$cmd" = "" ] #If no command was entered, and no runnable-flag was used
+then
+	echo "No command specified."
+	echo "Type \"$0 help\" for more help"
+	exit -1
+fi
+
+if [ ! -f "$machines" ]
+then
+	echo "File listing machines one per line doesn't exist: \"$machines\""
+	exit -2
+fi
+
+#Logging starts here
+
+echo -e "\n\n\n--------------------------------------------" >> "$logLoc"
+echo "`date +\"%m-%d-%y %T\"`" >> "$logLoc"
+echo "Command: $cmd" | tee -a "$logLoc"
+
+for machine in `cat $machines` #${machines[@]}
+do
+	echo -e "\n\nSSH Attempt:${machine}" | tee -a "$logLoc"
+	(ssh -q $machine "echo '`date +"%m-%d-%y %T"`' >> \"$logRem\";$cmd | tee -a \"$logRem\"" 2> /dev/null | tee -a "$logLoc"
+	echo -e "\n\n"
+	if [ $? -eq 255 ]
+	then
+		echo "SSH Error: $machine" >> "$logLoc"
+	fi) &
+	sleep 1
+done
