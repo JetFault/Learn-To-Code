@@ -6,3 +6,5 @@
 *.exe
 *.o
 *.so
+
+node_modules/
