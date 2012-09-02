@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Calendar App</string>
-    <string name="add_event">Add Event</string>
-    <string name="search_hint">Search Songs</string>
-    <string name="no_results">No results found for \"%s\"</string>
-  
-	
-</resources>
