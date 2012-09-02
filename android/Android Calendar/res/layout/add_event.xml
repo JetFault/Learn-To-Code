@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    
+    <!--  Title bar -->
+    <TextView  
+    	android:layout_width="fill_parent" 
+    	android:layout_height="30dp" 
+    	android:text="Add Event"
+    	android:gravity="center"
+    	android:background="#c0c0c0"
+    	android:textColor="#000000"
+    />
+    
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:padding="20dp"
+    	>
+		<TextView  
+    		android:layout_width="wrap_content" 
+    		android:layout_height="wrap_content" 
+    		android:text="Start Date"
+    		android:textColor="#0099FF"
+    		android:paddingBottom="2dp"
+    	/>
+    	<TextView
+    		android:id="@+id/start_date"
+    		android:layout_width="150dp"
+    		android:layout_height="wrap_content"
+    		android:background="@android:drawable/editbox_background"
+    		android:textSize="12sp"
+    		android:textColor="#0099FF"
+    		
+    	/>
+    	<TextView  
+    		android:layout_width="wrap_content" 
+    		android:layout_height="wrap_content" 
+    		android:text="End Date"
+    		android:textColor="#0099FF"
+    		android:paddingTop="10dp"
+    	/>
+    	<TextView
+    		android:id="@+id/end_date"
+    		android:layout_width="150dp"
+    		android:layout_height="wrap_content"
+    		android:background="@android:drawable/editbox_background"
+    		android:textSize="12sp"
+    		android:textColor="#0099FF"
+    		
+    	/>
+    	
+    	<Button 
+    			android:id="@+id/start_date_button"
+    			android:text="  Choose a date  "
+    			android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:layout_marginRight="15dp"
+    		/>
+    	
+    	<TextView  
+    		android:layout_width="wrap_content" 
+    		android:layout_height="wrap_content" 
+    		android:text="Start Time"
+    		android:textColor="#0099FF"
+    		android:paddingBottom="2dp"
+    		
+    	/>
+    	<TextView
+    		android:id="@+id/start_time"
+    		android:layout_width="150dp"
+    		android:layout_height="wrap_content"
+    		android:background="@android:drawable/editbox_background"
+    		android:textSize="12sp"
+    		    		    		android:textColor="#0099FF"
+    		
+    	/>
+    	
+    	<Button 
+    			android:id="@+id/start_time_button"
+    			android:text="  Choose a start time  "
+    			android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:layout_marginRight="15dp"
+    			
+    		/>
+    	
+    	
+    	<TextView  
+    		android:layout_width="wrap_content" 
+    		android:layout_height="wrap_content" 
+    		android:text="End Time"
+    		android:textColor="#0099FF"
+    		android:paddingTop="10dp"
+    		
+    		
+    	/>
+    	<TextView
+    		android:id="@+id/end_time"
+    		android:layout_width="150dp"
+    		android:layout_height="wrap_content"
+    		android:background="@android:drawable/editbox_background"
+    		android:textSize="12sp"
+    		    		android:textColor="#0099FF"
+    		
+    	/>
+    	<Button 
+    			android:id="@+id/end_time_button"
+    			android:text="  Choose an end time  "
+    			android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:layout_marginRight="15dp"
+    		/>
+    	
+    	<TextView  
+    		android:layout_width="wrap_content" 
+    		android:layout_height="wrap_content" 
+    		android:text="Description"
+    		android:textColor="#0099FF"
+    		android:paddingTop="10dp"
+    	/>
+    	<EditText
+    		android:id="@+id/description"
+    		android:layout_width="150dp"
+    		android:layout_height="wrap_content"
+    		android:background="@android:drawable/editbox_background"
+    		android:textSize="12sp"
+    		
+    	/>
+    	
+    	<TextView  
+    		android:layout_width="wrap_content" 
+    		android:layout_height="wrap_content" 
+    		android:text="Location"
+    		android:textColor="#0099FF"
+    		android:paddingTop="10dp"
+    	/>
+    	<EditText
+    		android:id="@+id/location"
+    		android:layout_width="150dp"
+    		android:layout_height="wrap_content"
+    		android:background="@android:drawable/editbox_background"
+    		android:textSize="12sp"
+    	/>	
+    	
+    	<LinearLayout
+    		android:orientation="horizontal"
+    		android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+    		android:paddingTop="20dp"
+    		>
+    
+    		<Button 
+    			android:id="@+id/event_save"
+    			android:text="  Save  "
+    			android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:layout_marginRight="15dp"
+    		/>
+    		<Button
+    			android:id="@+id/event_cancel"
+    			android:layout_width="wrap_content"
+    			android:layout_height="wrap_content"
+    			android:text=" Cancel "
+    		/>
+    	</LinearLayout>
+    	
+    
+    </LinearLayout>
+     
+</LinearLayout>
+
+
+</ScrollView>
+

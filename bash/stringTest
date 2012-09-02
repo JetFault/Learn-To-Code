@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "$@"
+
+while getopts r var; do
+	case $var in
+		r)
+			echo "-r was triggered"
+			;;
+		\?)
+			echo "invalid option: -$OPTARG"
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+echo "$@"
+
+echo "With quotes:"
+

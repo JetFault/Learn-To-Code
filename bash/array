@@ -1,0 +1,8 @@
+#!/bin/bash
+
+A=$(cat testFile)
+
+for i in ${A[*]}; do
+	echo $i
+done
+

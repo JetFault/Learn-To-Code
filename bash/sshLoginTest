@@ -1,0 +1,26 @@
+#!/bin/bash
+#Should be run by pam with:
+#session [success=ok system_err=1 default=ignore] pam_exec.so quiet $0
+#session optional pam_motd.so motd=<loc of motd>
+# exit status of 1 skips displaying motd
+
+if [ -z "$PAM_USER" ] || [ "$PAM_USER" = "root" ]; then
+	exit 1
+fi
+
+homedir="~$PAM_USER"
+eval homedir="$homedir"
+
+if [ "$homedir" = "" ] || [ "$homedir" = "/root" ] || [ "$homedir" = "/" ]; then
+	exit 1
+fi
+
+authLoc="$homedir/.ssh/authorized_keys"
+authLoc2="$homedir/.ssh/authorized_keys2"
+
+#if [ ! -f "$authLoc" ] || [ -z "`cat "$authLoc"`" ]; then
+if [[ -s "$authLoc" ]] || [[ -s "$authLoc2" ]]; then #file exists and is not empty
+	exit 0
+fi
+
+exit 1

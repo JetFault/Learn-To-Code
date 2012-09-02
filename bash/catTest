@@ -1,0 +1,14 @@
+#!/bin/bash
+
+function verbose {
+	if [ "$verb" -eq 1 ]
+	then
+		cat
+	else
+		cat $1 > /dev/null
+	fi
+}
+
+verb=$1
+
+echo hello my name is bob | verbose

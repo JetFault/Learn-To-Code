@@ -1,0 +1,7 @@
+#!/bin/bash
+
+loc="~/asdf"
+
+echo "-$loc-"
+
+echo "`date +\"%m-%d-%y %T\"` -- " >> $loc

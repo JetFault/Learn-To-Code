@@ -1,0 +1,9 @@
+#!/bin/bash
+
+line="Hello world"
+
+one="`echo "$line" | awk '{print $1}'`"
+two="`echo "$line" | awk '{print $2}'`"
+
+echo $one
+echo $two

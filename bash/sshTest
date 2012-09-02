@@ -1,0 +1,9 @@
+#!/bin/bash
+
+(ssh -q null.rutgers.edu "hostname" 2> /dev/null > echo "My name is what, \
+  my name is who, my name is:"
+if [ $? -eq 255 ]
+then
+	echo "SSH ERROR"
+fi)
+

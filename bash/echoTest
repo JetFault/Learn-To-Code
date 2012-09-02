@@ -1,0 +1,48 @@
+#!/bin/bash
+# no $1 limit, can be run at anytime without problem
+if ! [ -e "/etc/pam.d/system-auth" ]; then
+        echo "cannot find system-auth ; exiting...";
+        exit 0;
+fi
+
+TEMPER="`mktemp`";
+
+if [ -n "`cat /etc/pam.d/system-auth | grep pam_lcsr_ai`" ]; then
+        echo "pam_lcsr_ai seems to be already used in system-auth";
+        echo "removing AI section and continuing";
+        cat "/etc/pam.d/system-auth" | sed "/#Academic Integrity */,/#AI end */d" > "$TEMPER";
+        cat "$TEMPER" > "/etc/pam.d/system-auth";
+fi
+
+echo -n "" > "$TEMPER";
+
+cat "/etc/pam.d/system-auth" | while read line; do
+#if comment then write line
+        if [ -n "`echo $line | grep ^#`" ] || [ -n "`echo $line | grep ^\s*$`" ]; then
+                echo "$line" >> $TEMPER;
+        else
+#if not comment or blank line then...
+#if account line, mark as account section
+            if [ -n "`echo $line | grep ^account`" ]; then
+                echo "$line" >> $TEMPER;
+                USED="used";
+            else
+                if [ "$USED" ]; then
+                    echo "#Academic Integrity 1.2-%{release}" >> $TEMPER;
+                    echo "account     sufficient    pam_listfile.so item=user sense=allow file=/etc/aiexceptions.allow onerr=fail" >> $TEMPER;
+                    echo "account     requisite     pam_lcsr_ai.so onerr=succeed site=http://www.cs.rutgers.edu/policies/academicintegrity/query.php time=20" >> $TEMPER;
+                    echo "#AI end 1.2-%{release}" >> $TEMPER;
+                    echo "$line" >> $TEMPER;
+                    USED="";
+                else
+                    echo "$line" >> $TEMPER;
+                    USED="";
+                fi
+			fi
+        fi
+done
+cat "$TEMPER" > "/etc/pam.d/system-auth";
+rm "$TEMPER";
+USED="";
+exit 0;
+

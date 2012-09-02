@@ -1,0 +1,51 @@
+Operator Overloading
+====================
+
+You may submit this assignment as many times as you want.
+
+Your assignment is to write a Mayan date calculator.  The input will be provided through command-line arguments.  There will be five operations, with each operation specified as the first command-line argument and different operands as the remaining command-line arguments.
+
+argv[1]  argv[2]          argv[3]         output
+m+d      Mayan date       number of days  Mayan date
+m-d      Mayan date       number of days  Mayan date
+m-m      Mayan date       Mayan date      number of days
+g=       Gregorian date   -               Mayan date
+m=       Mayan date       -               Gregorian date
+
+The first operation m+d takes a Mayan date and a number of days.  The operation adds the number of days to the Mayan date to produce a Mayan date as output.  The second operation m-d subtracts the number of days from the Mayan date to produce a Mayan date as output.  The third operation m-m calculates the number of days between two Mayan dates.  The fourth operation g= converts a Gregorian date to a Mayan date.  The final operation m= converts a Mayan date to a Gregorian date.
+
+MAYAN DATES
+
+The Mayans used a dating system where one day was called a "kin".  Twenty kin was called a "uinal", and so on.  The following table shows the different Mayan time units in the Long Count Mayan calendar.  Please see the Wikipedia entry for "Maya Calendar" for more information, if you desire.
+
+Days              Long Count period    Long Count unit
+1                 -                    1 Kin
+20                20 Kin               1 Uinal
+360               18 Uinal             1 Tun
+7,200             20 Tun               1 Ka'tun
+144,000           20 Ka'tun            1 Bak'tun
+
+
+You may not need the information in the Days column.
+
+For our purposes, we do not need to use the Pictun, Kalabtun, K'inchiltun and Alautun time units as
+they are way to large.
+
+RELATIONSHIP BETWEEN MAYAN AND GREGORIAN DATES
+
+The Mayan date will be represented as (Bak'tun, Ka'tun, Tun, Uinal, Kin).  The Mayan date 0.0.0.0.0 corresponds to the Gregorian year August 11, 3114 BC.  This Gregorian date can be represented as (8, 11, -3113).  For our program, a Mayan date will be represented as five dot-separated integers, e.g. 12 Bak'tun, 3 Ka'tun, 14 Tun, 5 Uinal, 18 Kin would be entered and output as 12.3.14.5.18 .  A Gregorian date for our program would be entered and output in the form mm/dd/yyyy.
+
+LEAP YEARS IN THE GREGORIAN CALENDAR
+
+The Mayans may or may not have had something like a leap year.  We will assume they did not in this assignment.  The Gregorian calendar does have leap years.  Whether or not a year is a leap year is determined by the Gregorian year itself according to the following rules:
+
+If YEAR MOD 400 is zero, then YEAR is a leap year.
+Otherwise if YEAR MOD 100 is zero, then YEAR is not a leap year.
+Otherwise if YEAR MOD 4 is zero then YEAR is a leap year.
+Otherwise the YEAR is not a leap year.
+
+You can add other constructors, destructors, data members, member functions and overloaded operators as necessary.
+
+[25% Extra Credit]  Show the number of days between dates in terms of years, months, and days instead of just a large number of days.  Remember to adjust for leap years.
+
+Turn in .cc and .h files containing your commented code and a makefile.  Your Mayan calculator executable must be called mayancalc.  

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+out=""
+
+if [ "$1" = "-v" ]
+then
+	out=""
+else
+	out="> /dev/null"
+fi
+
+
+echo "This is my test!"; >

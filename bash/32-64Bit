@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ `getconf LONG_BIT` -eq "32" ];then
+	echo "32 bit"
+else
+  echo "64 bit"
+fi

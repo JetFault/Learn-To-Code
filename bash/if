@@ -1,0 +1,8 @@
+#!/bin/bash
+z=used
+
+if [ "$z" ]
+then
+	echo "True"
+fi
+

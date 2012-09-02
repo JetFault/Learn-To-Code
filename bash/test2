@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Var1 is $1"
+#if [ "$1" = "" ]
+#then
+#	echo "empty"
+if [ "$1" = "hi" ] 
+then
+	echo hello
+else
+	echo no
+fi
